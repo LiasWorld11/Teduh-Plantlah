@@ -640,7 +640,6 @@ with lst_col:
             text-align:center;
             margin-bottom:15px;
         ">
-            Heat Score
         </div>
 
         <div style="
