@@ -22,7 +22,12 @@ from tree_engine import recommend_tree_species
 # =========================================
 # MAIN PAGE  
 # =========================================
-st.set_page_config(layout="wide")
+st.set_page_config(
+    page_title="Teduh&Plantlah",
+    page_icon="🌳",
+    layout="wide",
+    initial_sidebar_state="expanded"
+)
 
 # ==========================================
 # SIDEBAR
@@ -81,6 +86,22 @@ st.markdown("""
         padding-left: 1rem;
         padding-right: 1rem;
     }
+    
+    /* Hide the sidebar collapse button */
+    [data-testid="stSidebarCollapseButton"] {
+        display: none !important;
+    }
+    
+    /* Hide the sidebar reopen button */
+    [data-testid="stSidebarCollapsedControl"] {
+        display: none !important;
+    }
+    
+    /* Hide the older Streamlit sidebar control */
+    [data-testid="collapsedControl"] {
+        display: none !important;
+    }
+
 </style>
 """, unsafe_allow_html=True)
 
@@ -119,10 +140,7 @@ with st.spinner("Preparing GIS layers..."):
 # Main Map
 footpaths = identify_footpaths(edges)
 
-# ==========================================
-# WHOLE-AREA TREE PLANTING CANDIDATES
-# ==========================================
-
+# Whole area tree planting candidates 
 screened_candidates = generate_heat_candidates(
     area=area,
     center_point=center_point,
@@ -157,11 +175,7 @@ if not screened_candidates.empty:
         ].to_string(index=False)
     )
     
-
-# ==========================================
-# LAND-COVER SUITABILITY ASSESSMENT
-# ==========================================
-
+# Land-cover suitability assessment 
 print(
     f"[HEAT CANDIDATES] {area}: "
     f"{len(screened_candidates)} inspection points"
@@ -179,7 +193,7 @@ m = folium.Map(
     prefer_canvas=True
 )
 
-# SATELLITE HEATMAP LAYER
+# Satallite heatmap
 
 @st.cache_data(show_spinner=False)
 def load_heat_overlay(selected_area):
@@ -221,7 +235,7 @@ folium.GeoJson(
     }
 ).add_to(m)
 
-#Pedestrian Corridors 
+# Pedestrian Corridors 
 if not footpaths.empty:
 
     folium.GeoJson(
@@ -298,10 +312,7 @@ if not building_buffers.empty:
         }
     ).add_to(m)
 
-# ==========================================
-# HEAT-PRIORITIZED INSPECTION MARKERS
-# ==========================================
-
+# Heat-prioritized inspection markers 
 candidate_layer = folium.FeatureGroup(
     name="Heat-Priority Planting Candidates",
     show=True
@@ -404,14 +415,7 @@ for _, row in screened_candidates.iterrows():
 
 candidate_layer.add_to(m)
 
-# ==========================================
-# 6. FLOATING MAP PANELS
-# ==========================================
-
-# These panels are embedded inside Folium's
-# map iframe, rather than placed in separate
-# Streamlit columns.
-
+# Floating map panels 
 legend_html = """
 <details style="
     position:fixed;
@@ -458,7 +462,6 @@ m.get_root().html.add_child(
     folium.Element(legend_html)
 )
 
-
 # Floating GIS overview
 overview_html = f"""
 <details style="
@@ -492,11 +495,7 @@ m.get_root().html.add_child(
     folium.Element(overview_html)
 )
 
-
-# ==========================================
-# 7. NATIVE MAP LAYERS CONTROL
-# ==========================================
-
+# Native map layers control
 folium.LayerControl(
     collapsed=True,
     position="topright"
@@ -535,7 +534,7 @@ with map_col:
         key=f"map_{area}_{distance}"
     )
 
-#Right Taskbar: LST
+# Right Taskbar: LST
 with lst_col:
 
     lst_html = """
@@ -544,7 +543,7 @@ with lst_col:
             color:white;
             border-radius:10px;
             padding:12px 6px;
-            margin-top:0px;
+            margin-top:15px;
             font-family:Arial,sans-serif;
             display:flex;
             flex-direction:column;
@@ -684,10 +683,7 @@ with lst_col:
 
     st.html(priority_html)
 
-
-# ==========================================
-# PLANTING DECISION DASHBOARD
-# ==========================================
+# Planting decision dashboard 
 st.divider()
 st.subheader("Planting Decision Dashboard")
 st.caption(
