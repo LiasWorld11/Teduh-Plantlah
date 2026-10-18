@@ -19,6 +19,10 @@ from heat_engine import (
 )
 
 from tree_engine import recommend_tree_species
+# =========================================
+# MAIN PAGE  
+# =========================================
+st.set_page_config(layout="wide")
 
 # ==========================================
 # SIDEBAR
@@ -112,9 +116,6 @@ with st.spinner("Preparing GIS layers..."):
         st.error("Unable to prepare GIS data.")
         st.exception(error)
         st.stop()
-
-# Main Page 
-st.set_page_config(layout="wide")
 # Main Map
 footpaths = identify_footpaths(edges)
 
@@ -520,7 +521,7 @@ m.get_root().header.add_child(
 )
 
 map_col, lst_col = st.columns(
-    [15, 1],
+    [11, 1.25],
     gap="small",
     vertical_alignment="top"
 )
@@ -529,7 +530,7 @@ with map_col:
     st_folium(
         m,
         width=None,
-        height=700,
+        height=680,
         returned_objects=[],
         key=f"map_{area}_{distance}"
     )
@@ -542,8 +543,8 @@ with lst_col:
             background:#17231e;
             color:white;
             border-radius:10px;
-            padding:18px 8px;
-            margin-top:45px;
+            padding:12px 6px;
+            margin-top:0px;
             font-family:Arial,sans-serif;
             display:flex;
             flex-direction:column;
@@ -579,7 +580,7 @@ with lst_col:
         ">
             <div style="
                 width:18px;
-                height:260px;
+                height:190px;
                 border-radius:5px;
                 background:linear-gradient(
                     to top,
@@ -592,7 +593,7 @@ with lst_col:
             "></div>
     
             <div style="
-                height:260px;
+                height:190px;
                 display:flex;
                 flex-direction:column;
                 justify-content:space-between;
@@ -649,10 +650,9 @@ with lst_col:
             justify-content:center;
             gap:6px;
         ">
-
             <div style="
                 width:18px;
-                height:220px;
+                height:190px;
                 border-radius:5px;
                 background:linear-gradient(
                     to top,
@@ -665,7 +665,7 @@ with lst_col:
             "></div>
 
             <div style="
-                height:220px;
+                height:190;
                 display:flex;
                 flex-direction:column;
                 justify-content:space-between;
