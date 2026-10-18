@@ -66,27 +66,16 @@ center_point = areas[area]
 
 st.markdown("""
 <style>
-    
-    /* Keep the sidebar accessible and scrollable */
-    [data-testid="stSidebarContent"] {
-        overflow-y: auto;
-        max-height: 100vh;
+    [data-testid="stSidebar"] {
+        min-width: 280px;
+        max-width: 280px;
     }
-    
-    /* Give sidebar branding enough room */
-    [data-testid="stSidebarContent"] h1 {
-        font-size: 1.35rem !important;
-        line-height: 1.35 !important;
-        overflow-wrap: anywhere;
-    }
-    
-    /* Reduce space above the main map */
+
     .block-container {
-        max-width: 100%;
-        padding-top: 0.25rem;
-        padding-left: 0.5rem;
-        padding-right: 0.5rem;
-        padding-bottom: 0;
+        padding-top: 1rem;
+        padding-bottom: 0rem;
+        padding-left: 1rem;
+        padding-right: 1rem;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -124,9 +113,9 @@ with st.spinner("Preparing GIS layers..."):
         st.exception(error)
         st.stop()
 
-# ==========================================
-# CREATE THE MAIN MAP
-# ==========================================
+# Main Page 
+st.set_page_config(layout="wide")
+# Main Map
 footpaths = identify_footpaths(edges)
 
 # ==========================================
@@ -540,7 +529,7 @@ with map_col:
     st_folium(
         m,
         width=None,
-        height=820,
+        height=700,
         returned_objects=[],
         key=f"map_{area}_{distance}"
     )
