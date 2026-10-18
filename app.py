@@ -663,7 +663,7 @@ with lst_col:
             "></div>
 
             <div style="
-                height:190;
+                height:190px;
                 display:flex;
                 flex-direction:column;
                 justify-content:space-between;
