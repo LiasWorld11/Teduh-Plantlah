@@ -76,8 +76,8 @@ center_point = areas[area]
 st.markdown("""
 <style>
     [data-testid="stSidebar"] {
-        min-width: 280px;
-        max-width: 280px;
+        min-width: 250px;
+        max-width: 250px;
     }
 
     .block-container {
